@@ -246,18 +246,18 @@ class BlackJack
     end
       play_again
   end
-
+# Space added between >= 2 and *
   def play_again
     puts "Would you like to play again? (y/n)"
     response = gets.chomp.downcase
     if response == "y"
       continue
     else
-      if player_score >= 2*dealer_score
+      if player_score >= 2 * dealer_score
         puts "We have some questions for you. This way please."
       elsif player_score >= dealer_score
         puts "Well done."
-      elsif 2*player_score < dealer_score
+      elsif 2 * player_score < dealer_score
         puts "You're technically property of the casino, now."
       else
         puts "Come back soon!"
