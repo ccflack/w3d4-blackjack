@@ -1,9 +1,10 @@
 require_relative "deck"
+require_relative "shoe"
 # require_relative "advisor"
 require "pry"
 
 
-class BlackJack
+class Game
 
   attr_accessor :dealer,
                 :player,
@@ -18,17 +19,20 @@ class BlackJack
   #   dealer.hand_simplified.drop(1)
   # end
 
-  def initialize(output = true)
-    puts "Let's play a game of Black Jack." if output
+  def initialize
+    puts "Let's play a game of Black Jack."
     self.deck = Deck.new
-    self.shoe = []
-    7.times { self.shoe += deck.box }
+    self.shoe = Shoe.new
     self.dealer = []
     self.player = []
     self.shoe.shuffle!
     self.dealer_score = 0
     self.player_score = 0
     self.game_counter = 0
+  end
+
+  def deal
+    Deck.box.deal
   end
 
   def play_hand
@@ -69,10 +73,10 @@ class BlackJack
 # Player Logic
 
   def player_turn
-    blackjack(player "Player") if blackjack?(player)
+    blackjack(player, "Player") if blackjack?(player)
     player_ace(player)
     busted(player, "Player") if bust?(player)
-    hit_choice
+    hit_choice unless blackjack?(player) || bust?(player)
   end
 
   def hit_choice
@@ -83,6 +87,7 @@ class BlackJack
       player_hit
     elsif response == "stand"
       player_stand
+      dealer_turn
     # elsif response == "i"
     #   advice
     else
@@ -102,7 +107,6 @@ class BlackJack
     puts "The player will stand with #{hand_simplified(player)}"
     busted(player, "Player") if bust?(player)
     blackjack(player "Player") if blackjack?(player)
-    dealer_turn
   end
 
   def player_ace(player)
@@ -115,9 +119,10 @@ class BlackJack
         else
           card.value = 11
         end
+      else
+        return
       end
     end
-    hit_choice
   end
 
 # Dealer Logic
@@ -138,7 +143,6 @@ class BlackJack
     puts "Dealer will hit."
     self.dealer << shoe.deal
     reveal_cards
-    dealer_turn
   end
 
   def dealer_stand
@@ -185,6 +189,7 @@ class BlackJack
   def lucky(hand, who)
     puts "Six card hand wins!"
     score_win(who)
+    play_again
   end
 
 # Score/Win Logic
@@ -219,7 +224,6 @@ class BlackJack
     else
       self.dealer_score += 1
     end
-    play_again
   end
 
   def score_win(who)
@@ -228,7 +232,6 @@ class BlackJack
     else
       self.player_score += 1
     end
-      play_again
   end
 
   def play_again
@@ -265,4 +268,4 @@ end
 
 # binding.pry
 
-BlackJack.new.play_hand 
+Game.new.play_hand

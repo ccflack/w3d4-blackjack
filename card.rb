@@ -37,7 +37,7 @@ include Comparable
     [other, value]
   end
 
-  def +(card)
-    self.value + card.value
+  def +(other)
+    value + other.value
   end
 end

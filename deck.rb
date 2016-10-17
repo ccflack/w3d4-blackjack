@@ -6,6 +6,7 @@ class Deck
 
   def initialize
     fill
+    shuffle!
   end
 
   def fill
@@ -15,7 +16,6 @@ class Deck
         box << Card.new(suit, face)
       end
     end
-    shuffle!
   end
 
   def shuffle!

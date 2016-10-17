@@ -1,23 +1,9 @@
 require_relative "deck"
 
-class Shoe
+class Shoe < Deck
 
-  attr_accessor :pile
-
-  def initialize
-    self.pile = 7.times {super}
-  end
-
-  def deal
-    pile.shift
-  end
-
-  def shuffle!
-    pile.shuffle!
-  end
-
-  def empty?
-    pile.empty?
+  def fill
+    7.times {super}
   end
 
 end
