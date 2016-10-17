@@ -11,7 +11,6 @@ class Deck
         box << Card.new(suit, face)
       end
     end
-    shuffle!
   end
 
   def shuffle!
