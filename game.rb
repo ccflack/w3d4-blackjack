@@ -72,7 +72,7 @@ class BlackJack
     busted(player, 'Player') if bust?(player)
     hit_choice
   end
-# Changed sentence to make it two seperate ones. 
+# Changed sentence to make it two seperate ones.
   def hit_choice
     puts "Would you like another card ('hit')? Or keep your current hand ('stand')?"
     # puts "Press 'i' for a hint."
@@ -169,13 +169,9 @@ class BlackJack
     puts "Dealer had #{hand_simplified(dealer)}. Player had #{hand_simplified(player)}."
     play_again
   end
-
+#took out true/false
   def bust?(hand)
-    if hand.inject(:+) >= 22
-      true
-    else
-      false
-    end
+     hand.inject(:+) >= 22
   end
 
   def busted(hand, who)
@@ -186,11 +182,7 @@ class BlackJack
   end
 
   def three_legged_rabbit?(hand)
-    if hand.length >= 6
-      true
-    else
-      false
-    end
+     hand.length >= 6
   end
 
   def lucky(_hand, who)
