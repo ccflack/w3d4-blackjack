@@ -5,12 +5,17 @@ class Deck
   attr_accessor :box
 
   def initialize
+    fill
+  end
+
+  def fill
     self.box = []
     Card.suits.each do |suit|
       Card.faces.each do |face|
         box << Card.new(suit, face)
       end
     end
+    shuffle!
   end
 
   def shuffle!

@@ -30,11 +30,11 @@ include Comparable
   end
 
   def to_s
-    "the #{@face} of #{@suit}"
+    "the #{face} of #{suit}"
   end
 
   def coerce(other)
-    [self.value, other]
+    [other, value]
   end
 
   def +(card)

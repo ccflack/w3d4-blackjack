@@ -18,11 +18,11 @@ class BlackJack
   #   dealer.hand_simplified.drop(1)
   # end
 
-  def initialize
-    puts "Let's play a game of Black Jack."
+  def initialize(output = true)
+    puts "Let's play a game of Black Jack." if output
     self.deck = Deck.new
     self.shoe = []
-    7.times do self.shoe = deck end
+    7.times { self.shoe += deck.box }
     self.dealer = []
     self.player = []
     self.shoe.shuffle!
@@ -131,11 +131,7 @@ class BlackJack
   end
 
   def dealer_hit?
-    if dealer.inject(:+) <= 16
-      true
-    else
-      false
-    end
+    dealer.inject(:+) <= 16
   end
 
   def dealer_hit
@@ -161,11 +157,7 @@ class BlackJack
 # Conditionals
 
   def blackjack?(hand)
-    if hand.inject(:+) == 21 && hand.length == 2
-      true
-    else
-      false
-    end
+    hand.inject(:+) == 21
   end
 
   def blackjack(hand, who)
@@ -176,11 +168,7 @@ class BlackJack
   end
 
   def bust?(hand)
-    if hand.inject(:+) >= 22
-      true
-    else
-      false
-    end
+    hand.inject(:+) >= 22
   end
 
   def busted(hand, who)
@@ -191,11 +179,7 @@ class BlackJack
   end
 
   def three_legged_rabbit?(hand)
-    if hand.length >= 6
-      true
-    else
-      false
-    end
+    hand.length >= 6
   end
 
   def lucky(hand, who)
@@ -253,11 +237,11 @@ class BlackJack
     if response == "y"
       continue
     else
-      if player_score >= 2*dealer_score
+      if player_score >= (2 * dealer_score)
         puts "We have some questions for you. This way please."
       elsif player_score >= dealer_score
         puts "Well done."
-      elsif 2*player_score < dealer_score
+      elsif (2 * player_score) < dealer_score
         puts "You're technically property of the casino, now."
       else
         puts "Come back soon!"
@@ -279,4 +263,6 @@ class BlackJack
 
 end
 
-binding.pry
+# binding.pry
+
+BlackJack.new.play_hand 
