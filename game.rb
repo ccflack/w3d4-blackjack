@@ -18,11 +18,11 @@ class BlackJack
   #   dealer.hand_simplified.drop(1)
   # end
 
-  def initialize(output = true)
-    puts "Let's play a game of Black Jack." if output
+  def initialize
+    puts "Let's play a game of Black Jack."
     self.deck = Deck.new
     self.shoe = []
-    7.times { self.shoe += deck.box }
+    7.times do self.shoe = deck end
     self.dealer = []
     self.player = []
     self.shoe.shuffle!
@@ -161,7 +161,11 @@ class BlackJack
 # Conditionals
 
   def blackjack?(hand)
-    hand.inject(:+) == 21 && hand.length == 2
+    if hand.inject(:+) == 21 && hand.length == 2
+      true
+    else
+      false
+    end
   end
 
   def blackjack(hand, who)
@@ -275,6 +279,4 @@ class BlackJack
 
 end
 
-# binding.pry
-
-BlackJack.new.play_hand if ARGV[0] == "play"
+binding.pry
