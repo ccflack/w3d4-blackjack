@@ -184,8 +184,8 @@ class BlackJack
   def three_legged_rabbit?(hand)
      hand.length >= 6
   end
-
-  def lucky(_hand, who)
+# Removed underscore from infront of hand 
+  def lucky(hand, who)
     puts 'Six card hand wins!'
     score_win(who)
   end
